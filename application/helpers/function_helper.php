@@ -294,39 +294,23 @@ if(!function_exists("docemecespasados"))
 if(!function_exists("_is_respcorrect"))
 {
 	function _is_respcorrect($respuesta_correcta,$respuesta,$calificacion,$tipopregunta){
-		if($tipopregunta==="HORAS"){
-			$dias=(int)$respuesta;
-			$dias=1-(int)$dias/24;
-			$peso=(float)$calificacion;
-			$_calificacion=$peso*$dias;
+		if($tipopregunta==="AB" || $tipopregunta==="FECHA" || $tipopregunta==="HORA" || $tipopregunta==="F/H" || $tipopregunta==="NUMERO" || $tipopregunta==="START" ){
+			if($respuesta!=="" || $respuesta!==false){
+				$_calificacion=$calificacion;
+			}else{
+				$_calificacion=0;
+			}	
 			return $_calificacion;
 		}
-		if($tipopregunta==="SEGUNDOS"){
-			$dias=(int)$respuesta;
-			$dias=1-(int)$dias/60;
-			$peso=(float)$calificacion;
-			$_calificacion=$peso*$dias;
-			return $_calificacion;
+		if($tipopregunta==="DESLIZA" ||  $tipopregunta==="CARGA"){
+			return $calificacion;
 		}
 		
-		if($tipopregunta==="MINUTOS"){
-			$dias=(int)$respuesta;
-			$dias=1-(int)$dias/60;
-			$peso=(float)$calificacion;
-			$_calificacion=$peso*$dias;
-			return $_calificacion;
-		}
-
-		if($tipopregunta==="DIAS"){
-			$dias=(int)$respuesta;
-			$dias=1-(int)$dias/34;
-			$peso=(float)$calificacion;
-			$_calificacion=$peso*$dias;
-			return $_calificacion;
-		}
 		if($tipopregunta==="SI/NO" || $tipopregunta==="SI/NO/NA" || $tipopregunta==="SI/NO/NS"){
 			if($respuesta==="NA" || $respuesta==="NS"){
 				return $_calificacion=0;
+			}else if($respuesta_correcta==="SR"){
+				return $calificacion;
 			}else{
 				if($respuesta_correcta!==$respuesta){
 					return $_calificacion=0;
@@ -335,7 +319,30 @@ if(!function_exists("_is_respcorrect"))
 				}
 			}
 		}
-		
+		if($tipopregunta==="MLC"){
+			if(count($respuesta)===0){
+				return $_calificacion=0;
+			}else if($respuesta_correcta==="SR"){
+				return $calificacion;
+			}else{
+				return $calificacion;
+			}
+
+		}
+		if($tipopregunta==="ML"){
+			if($respuesta===false || $respuesta!==$respuesta_correcta){
+				return $_calificacion=0;
+			}else if($respuesta_correcta==="SR"){
+				return $calificacion;
+			}else{
+				if($respuesta_correcta!==$respuesta){
+					return $_calificacion=0;
+				}else{
+					return $_calificacion=$calificacion;
+				}
+			}
+		}
+	}	
 }
 if(!function_exists("docemeces"))
 			{
@@ -347,4 +354,4 @@ if(!function_exists("docemeces"))
 							return $fechas;
 					}
 				}	
-			}
+

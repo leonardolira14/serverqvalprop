@@ -7,7 +7,24 @@ class Model_Usuarios extends CI_Model
         $this->load->database();
 		$this->constante="FpgH456Gtdgh43i349gjsjf%ttt";
     }
-
+    //valido la contraseña
+    public function validate_clave($_Usuario,$_Clave){
+        $_Clave=md5($_Clave.$this->constante);
+        $sql=$this->db->select('*')->where("IDUsuario='$_Usuario' and Clave='$_Clave'")->get("tbusuarios_plus");
+        if($sql->num_rows()===0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    //funcion para actualizar la contraseña 
+    public function update_clave($_Usuario,$_Clave){
+        $_Clave=md5($_Clave.$this->constante);
+        $array=array(
+            "Clave"=> $_Clave
+        );
+        $this->db->where("IDUsuario='$_Usuario'")->update('tbusuarios_plus',$array);
+    }
     // funcion para activar el login
     public function login($_Usuario,$_Clave){
         //concateno la clave
