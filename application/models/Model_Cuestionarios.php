@@ -34,7 +34,7 @@ class Model_Cuestionarios extends CI_Model
          endif;
 
          $respuesta=$this->db->select('IDCuestionario,Fecha_Envio,Hora_Envio,RazonSocial')->join("empresa","empresa.IDEmpresa=tb_cuestionarios_usuarios_plus.IDEmpresa_Emisora")->from('tb_cuestionarios_usuarios_plus')->where("tb_cuestionarios_usuarios_plus.IDEmpresa='$_IDEmpresa' and IDUsuario='$_IDUsuario' and  Status='$_Status' and date(Fecha_Envio) between '$fecha_inicio' and '$fecha_fin'")->get();
-         vdebug($respuesta->result_array());
+         
          $custionarios=$respuesta->result_array();
          foreach ($custionarios as $key => $Item) {
             $listado_preguntas=[];
