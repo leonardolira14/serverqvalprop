@@ -71,7 +71,7 @@ class Usuarios extends REST_Controller {
             $this->response($_data, 200);
         }
     }
-    public function updatenameavatar(){
+    public function updatenameavatar_post(){
         $datos=$this->post();
         $respuesta=$this->Model_Usuarios->updateFoto($datos["IDUsuario"],$datos["Foto"]);
         if($respuesta===true){
