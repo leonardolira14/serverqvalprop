@@ -29,8 +29,8 @@ $db['defaultt'] = array(
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'ec2-18-188-195-242.us-east-2.compute.amazonaws.com',
-	'username' => 'root',
+	'hostname' => '3.133.125.103',
+	'username' => 'administradoronline',
 	'password' => 'admyo246',
 	'database' => 'qval',
 	'dbdriver' => 'mysqli',
